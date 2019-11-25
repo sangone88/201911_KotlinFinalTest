@@ -9,6 +9,11 @@ import kotlin.collections.ArrayList
 
 class LottoActivity : BaseActivity() {
 
+//    누적 사용금액
+    var userdMoney = 0L
+//    누적 당첨금액
+    var luckyMoney = 0L
+
     var lottoNumArrayList = ArrayList<Int>()
     var thisWeekLottoNumTextViewArrayList = ArrayList<TextView>()
     var myNumArrayList = ArrayList<Int>()
@@ -26,6 +31,8 @@ class LottoActivity : BaseActivity() {
 //            숫자를 랜덤으로 6개 생성. 1~45 / 중복 안됨.
             setThisWeekLottoNum()
             checkLottoRank()
+            userdMoney += 1000
+            usedMoneyTxt.text = String.format("사용금액 : %,d원", userdMoney)
         }
     }
 
