@@ -10,7 +10,7 @@ class LottoActivity : BaseActivity() {
         setupEvents()
         setValues()
     }
-    
+
     override fun setupEvents() {
 
     }
