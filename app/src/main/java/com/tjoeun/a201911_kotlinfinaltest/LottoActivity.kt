@@ -27,6 +27,20 @@ class LottoActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+        autoLottoBtn.setOnClickListener {
+            while (true) {
+                setThisWeekLottoNum()
+                checkLottoRank()
+                userdMoney += 1000
+                usedMoneyTxt.text = String.format("사용금액 : %,d원", userdMoney)
+
+                if (userdMoney >= 100000000) {
+                    break
+                }
+            }
+
+        }
+
         buyOneLottoBtn.setOnClickListener {
 //            숫자를 랜덤으로 6개 생성. 1~45 / 중복 안됨.
             setThisWeekLottoNum()
