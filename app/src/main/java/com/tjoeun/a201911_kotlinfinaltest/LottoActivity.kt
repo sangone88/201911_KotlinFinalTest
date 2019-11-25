@@ -55,20 +55,26 @@ class LottoActivity : BaseActivity() {
         }
 
         if (correctCount == 6) {
-            Toast.makeText(mContext, "1등 당첨!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext, "1등 당첨!", Toast.LENGTH_SHORT).show()
+            luckyMoney += 2000000000
         }
         else if (correctCount == 5) {
-            Toast.makeText(mContext, "3등 당첨!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext, "3등 당첨!", Toast.LENGTH_SHORT).show()
+            luckyMoney += 15000000
         }
         else if (correctCount == 4) {
-            Toast.makeText(mContext, "4등 당첨!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext, "4등 당첨!", Toast.LENGTH_SHORT).show()
+            luckyMoney += 50000
         }
         else if (correctCount == 3) {
-            Toast.makeText(mContext, "5등 당첨!", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext, "5등 당첨!", Toast.LENGTH_SHORT).show()
+            luckyMoney += 5000
         }
         else {
-            Toast.makeText(mContext, "꽝입니다.", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext, "꽝입니다.", Toast.LENGTH_SHORT).show()
+            luckyMoney += 0
         }
+        luckyMoneyTxt.text = String.format("누적 당첨 금액 : %,d원", luckyMoney)
 
     }
 
