@@ -1,6 +1,7 @@
 package com.tjoeun.a201911_kotlinfinaltest
 
 import android.os.Bundle
+import android.os.Handler
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_lotto.*
@@ -8,6 +9,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class LottoActivity : BaseActivity() {
+    
+    var mHandler = Handler()
 
 //    누적 사용금액
     var userdMoney = 0L
@@ -28,17 +31,7 @@ class LottoActivity : BaseActivity() {
 
     override fun setupEvents() {
         autoLottoBtn.setOnClickListener {
-            while (true) {
-                setThisWeekLottoNum()
-                checkLottoRank()
-                userdMoney += 1000
-                usedMoneyTxt.text = String.format("사용금액 : %,d원", userdMoney)
-
-                if (userdMoney >= 100000000) {
-                    break
-                }
-            }
-
+            doLottoLoop()
         }
 
         buyOneLottoBtn.setOnClickListener {
@@ -90,6 +83,23 @@ class LottoActivity : BaseActivity() {
         }
         luckyMoneyTxt.text = String.format("누적 당첨 금액 : %,d원", luckyMoney)
 
+    }
+
+    fun doLottoLoop() {
+        mHandler.post {
+            if (userdMoney < 100000000) {
+                setThisWeekLottoNum()
+                checkLottoRank()
+                userdMoney += 1000
+                usedMoneyTxt.text = String.format("사용금액 : %,d원", userdMoney)
+                doLottoLoop()
+            }
+            else{
+                runOnUiThread {
+                    Toast.makeText(mContext, "로또 구매를 종료합니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     fun setThisWeekLottoNum() {
