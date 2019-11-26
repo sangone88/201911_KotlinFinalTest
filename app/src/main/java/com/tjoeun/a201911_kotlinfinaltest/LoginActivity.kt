@@ -2,6 +2,7 @@ package com.tjoeun.a201911_kotlinfinaltest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.tjoeun.a201911_kotlinfinaltest.utils.ContextUtil
 import com.tjoeun.a201911_kotlinfinaltest.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_login.*
@@ -22,9 +23,9 @@ class LoginActivity : BaseActivity() {
 
             ServerUtil.postRequestLogin(mContext, userId, userPw, object : ServerUtil.JasonResponseHandler {
                 override fun onResponse(json: JSONObject) {
-
+//                    cho881020 / qlalfqjsgh! 로그인 성공 아이디 비번
+                    Log.d("서버응답", json.toString())
                 }
-
             })
         }
 
