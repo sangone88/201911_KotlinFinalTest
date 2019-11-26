@@ -50,6 +50,7 @@ class LottoActivity : BaseActivity() {
             }
             else {
 //                반복 중단시키기.
+                stopLottoLoop()
                 isNowBuying = false
                 autoLottoBtn.text = "자동 구매 재개"
             }
@@ -137,8 +138,8 @@ class LottoActivity : BaseActivity() {
 
     }
 
-    fun doLottoLoop() {
-        mHandler.post {
+    var lottoRunnable = object : Runnable {
+        override fun run() {
             if (userdMoney < 100000000) {
                 setThisWeekLottoNum()
                 checkLottoRank()
@@ -152,6 +153,14 @@ class LottoActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    fun doLottoLoop() {
+        mHandler.post(lottoRunnable)
+    }
+
+    fun stopLottoLoop() {
+        mHandler.removeCallbacks(lottoRunnable)
     }
 
     fun setThisWeekLottoNum() {
@@ -198,6 +207,7 @@ class LottoActivity : BaseActivity() {
 //        당첨번호 6개를 작은 숫자부터 큰 숫자 순서대로 (정렬)!
         Collections.sort(lottoNumArrayList)
 
+//        보너스번호를 추가로 뽑자. 중복을 피해야함. => 몇번이나 뽑아야 중복이 아닐지 알수 없다.
         while (true) {
             var tempRandomNum = (Math.random() * 45 + 1).toInt()
             var isDuplOk = true
@@ -209,9 +219,12 @@ class LottoActivity : BaseActivity() {
                     break
                 }
             }
-        }
+            if (isDuplOk) {
+                bonusNum = tempRandomNum
+                break
+            }
 
-        if (isDupleOk)
+        }
 
 
 //        6개의 텍스트뷰 / 당첨번호를 뽑아내서 연결.
@@ -221,6 +234,8 @@ class LottoActivity : BaseActivity() {
 
             numTxt.text = number.toString()
         }
+
+        bonusNumTxt.text = bonusNum.toString()
 
     }
 
@@ -243,6 +258,5 @@ class LottoActivity : BaseActivity() {
             myNumArrayList.add(myTv.text.toString().toInt())
         }
     }
-
 
 }
