@@ -1,8 +1,9 @@
 package com.tjoeun.a201911_kotlinfinaltest.datas
 
 import org.json.JSONObject
+import java.io.Serializable
 
-class UserData {
+class UserData : Serializable {
     var loginid = ""
     var name = ""
     var phone = ""

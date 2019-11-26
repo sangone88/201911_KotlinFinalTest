@@ -1,11 +1,13 @@
 package com.tjoeun.a201911_kotlinfinaltest
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.tjoeun.a201911_kotlinfinaltest.datas.UserData
 import com.tjoeun.a201911_kotlinfinaltest.utils.ContextUtil
+import com.tjoeun.a201911_kotlinfinaltest.utils.GlobalData
 import com.tjoeun.a201911_kotlinfinaltest.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONObject
@@ -43,6 +45,12 @@ class LoginActivity : BaseActivity() {
                         if (saveIdCheckBox.isChecked) {
                             ContextUtil.setUserId(mContext, userData.loginid)
                         }
+
+//                        로그인한 사용자가 누구인지는 모든 액티비티가 공유해야함
+                        GlobalData.loginUserData = userData
+
+                        val intent = Intent(mContext, BoardActivity::class.java)
+                        startActivity(intent)
 
 
                     }
