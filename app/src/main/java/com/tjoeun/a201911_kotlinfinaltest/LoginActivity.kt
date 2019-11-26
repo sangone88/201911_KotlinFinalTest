@@ -40,6 +40,10 @@ class LoginActivity : BaseActivity() {
 
                         val userData = UserData.getUserFromJsonObject(user)
 
+                        if (saveIdCheckBox.isChecked) {
+                            ContextUtil.setUserId(mContext, userData.loginid)
+                        }
+
 
                     }
                     else if (code == 400){
@@ -69,5 +73,6 @@ class LoginActivity : BaseActivity() {
 
     override fun setValues() {
         saveIdCheckBox.isChecked = ContextUtil.getSaveIdChecked(mContext)
+        idEdt.setText(ContextUtil.getUserId(mContext))
     }
 }
