@@ -6,8 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tjoeun.a201911_kotlinfinaltest.R
+import com.tjoeun.a201911_kotlinfinaltest.datas.BlackList
+import com.tjoeun.a201911_kotlinfinaltest.utils.ServerUtil
+import org.json.JSONObject
 
-class BoardListFragment : Fragment() {
+class BoardListFragment : BaseFragment() {
+
+    var blackList = ArrayList<BlackList>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -18,5 +24,36 @@ class BoardListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        mContext = activity
+        setupEvents()
+        setValues()
     }
+    override fun setupEvents() {
+
+    }
+
+    override fun setValues() {
+        getBlackListFromServer()
+    }
+
+    fun getBlackListFromServer() {
+        ServerUtil.getRequestBlackList(mContext!!, object : ServerUtil.JasonResponseHandler{
+            override fun onResponse(json: JSONObject) {
+                val code = json.getInt("code")
+
+                if (code == 200) {
+                    val data = json.getJSONObject("data")
+                    val black_lists = data.getJSONArray("black_lists")
+
+                    blackList.clear()
+                    for (i in 0..black_lists.length()-1) {
+                        blackList.add(BlackList.getBlackListDataFromJson(black_lists.getJSONObject(i)))
+                    }
+                }
+            }
+
+        })
+    }
+
+
 }

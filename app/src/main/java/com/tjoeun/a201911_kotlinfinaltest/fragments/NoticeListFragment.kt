@@ -71,5 +71,4 @@ class NoticeListFragment : BaseFragment() {
         })
     }
 
-
 }

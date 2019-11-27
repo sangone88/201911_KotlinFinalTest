@@ -8,6 +8,8 @@ class UserData : Serializable {
     var name = ""
     var phone = ""
 
+    var category = Category()
+
     companion object {
         fun getUserFromJsonObject(json:JSONObject) : UserData {
             val user = UserData()
@@ -15,6 +17,8 @@ class UserData : Serializable {
             user.loginid = json.getString("login_id")
             user.name = json.getString("name")
             user.phone = json.getString("phone")
+
+            user.category = Category.getCategoryFromJson(json.getJSONObject("category"))
 
             return user
         }
