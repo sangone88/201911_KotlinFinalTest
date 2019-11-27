@@ -59,7 +59,9 @@ class NoticeListFragment : BaseFragment() {
                     for (i in 0..notices.length()-1) {
                         noticeList.add(Notice.getNoticeFromJson(notices.getJSONObject(i)))
                     }
-                    noticeAdapter?.notifyDataSetChanged()
+                    activity!!.runOnUiThread {
+                        noticeAdapter?.notifyDataSetChanged()
+                    }
                 }
                 else {
                     Toast.makeText(mContext!!, "서버 연결에 문제가 있습니다.", Toast.LENGTH_SHORT).show()
