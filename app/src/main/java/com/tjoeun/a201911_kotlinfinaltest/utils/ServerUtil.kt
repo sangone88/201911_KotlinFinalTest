@@ -51,6 +51,36 @@ class ServerUtil {
             })
         }
 
+        fun getRequestNotice(context: Context, handler: JasonResponseHandler?) {
+            var client = OkHttpClient()
+            var urlBuilder = HttpUrl.parse("${BASE_URL}/notice")!!.newBuilder()
+//            GET 방식의 파라미터를 첨부하는 방법
+//            urlBuilder.addEncodedQueryParameter("device_token", "test")
+
+            val requestUrl = urlBuilder.build().toString()
+            Log.d("요청URL", requestUrl)
+
+            val request = Request.Builder()
+                .url(requestUrl)
+//                    필요하면 header() 함수 사용
+                .header("X-Http-Token", ContextUtil.getUserToken(context))
+                .build()
+
+            client.newCall(request).enqueue(object :Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.d("서버통신에러", e.localizedMessage)
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val body = response.body()!!.string()
+                    val json = JSONObject(body)
+                    handler?.onResponse(json)
+                }
+
+            })
+
+        }
+
     }
 
 }
