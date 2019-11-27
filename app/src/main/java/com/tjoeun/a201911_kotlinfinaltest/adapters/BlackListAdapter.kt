@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import com.tjoeun.a201911_kotlinfinaltest.R
 import com.tjoeun.a201911_kotlinfinaltest.datas.BlackList
 
 
-class BoardAdapter(context: Context, res:Int, list:ArrayList<BlackList>)
+class BlackListAdapter(context: Context, res:Int, list:ArrayList<BlackList>)
     : ArrayAdapter<BlackList> (context, res, list) {
 
     var mContext = context
@@ -28,6 +29,15 @@ class BoardAdapter(context: Context, res:Int, list:ArrayList<BlackList>)
 
         val data = mList.get(position)
 
+        val categoryTxt = row.findViewById<TextView>(R.id.categoryTxt)
+        val writerNameTxt = row.findViewById<TextView>(R.id.writerNameTxt)
+        val titleTxt = row.findViewById<TextView>(R.id.writerNameTxt)
+        val contentTxt = row.findViewById<TextView>(R.id.contentTxt)
+
+        categoryTxt.text = data.writer.category.title
+        writerNameTxt.text = data.writer.name
+        titleTxt.text = data.title
+        contentTxt.text = data.content
 
 
         return row
