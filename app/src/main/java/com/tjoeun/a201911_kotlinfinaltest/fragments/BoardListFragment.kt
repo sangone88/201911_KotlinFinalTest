@@ -1,10 +1,12 @@
 package com.tjoeun.a201911_kotlinfinaltest.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.tjoeun.a201911_kotlinfinaltest.EditBlackListActivity
 import com.tjoeun.a201911_kotlinfinaltest.R
 import com.tjoeun.a201911_kotlinfinaltest.adapters.BlackListAdapter
 import com.tjoeun.a201911_kotlinfinaltest.datas.BlackList
@@ -32,6 +34,10 @@ class BoardListFragment : BaseFragment() {
         setValues()
     }
     override fun setupEvents() {
+        writeBlackListBtn.setOnClickListener {
+            val intent = Intent(mContext!!, EditBlackListActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
